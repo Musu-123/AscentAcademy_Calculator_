@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+         /* #a{
+            color: #ffffff;
+        border-color: aqua;
+        padding: 10px;
+        border-radius: 10px;
+        }  */
+        body{
+            background-color: chartreuse;
+            border-color: cadetblue;
+            text-align: center;
+        }
+        h1{
+            color:black;
+            text-align: center;
+            border: #ebdede;
+            text-align: center;
+        }
+        .calculator {
+	        display: inline-block;
+            align-items: center;
+	        border: 2px solid #7d0de6;
+	        padding: 10px;
+            text-align: center;
+        }
+
+        .display-screen {
+	        background-color: #ebdede;
+	        border: 1px solid #72f188;
+            align-items: center;
+	        height: 50px;
+	        margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .buttons {
+	        display: grid;
+	        grid-template-columns: repeat(4, 1fr);
+	        grid-gap: 10px;
+            text-align: center;
+        }
+
+        button {
+	        padding: 10px;
+	        font-size: 18px;
+	        background-color: #8d1cd8;
+	        border: 1px solid #7914ec;
+	        cursor: pointer;
+            text-align: center;
+        }
+
+        button:hover {
+	        background-color: #fa12c8;
+	        color: #22e0e0fff;
+            text-align: center;
+        }
+    </style>
+</head>
+<body >
+    
+    <!-- <div id="a">
+    <img src="Ascent Academies.jpg" alt="My Logo">
+</div> -->
+<h1>AscentAcademy_Calculator</h1>
+    
+    <div class="calculator">
+        <div class="display-screen">
+            <p id="result"></p>
+        </div>
+        <div class="buttons">
+            <button class="clear">C</button>
+            <button class="operator">/</button>
+            <button class="operator">*</button>
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator">-</button>
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="operator">+</button>
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="equal">=</button>
+            <button class="number">0</button>
+            <button class="dot">.</button>
+        </div>
+    </div>
+
+    <script>
+        const result = document.getElementById("result");
+
+        const clearButton = document.querySelector(".clear");
+        clearButton.addEventListener("click", clearDisplay);
+
+        const numberButtons = document.querySelectorAll(".number");
+        numberButtons.forEach(button => button.addEventListener("click", addNumber));
+
+        const operatorButtons = document.querySelectorAll(".operator");
+        operatorButtons.forEach(button => button.addEventListener("click", addOperator));
+
+        const equalButton = document.querySelector(".equal");
+        equalButton.addEventListener("click", calculate);
+
+        function clearDisplay() {
+            result.textContent = "";
+        }
+
+        function addNumber() {
+            const number = this.textContent;
+            result.textContent += number;
+        }
+
+        function addOperator() {
+            const operator = this.textContent;
+            result.textContent += operator;
+        }
+
+        function calculate() {
+            const input = result.textContent;
+            const regex = /([+\-*/]?)(\d+(?:\.\d+)?)/g;
+            let match;
+            let total = 0;
+            let operator = "+";
+            while ((match = regex.exec(input)) !== null) {
+            const currentOperator = match[1] || "+";
+             const currentNumber = parseFloat(match[2]);
+             if (currentOperator === "+") {
+               total += currentNumber;
+                 } else if (currentOperator === "-") {
+                   total -= currentNumber;
+                  } else if (currentOperator === "*") {
+                       total *= currentNumber;
+                     } else if (currentOperator === "/") {
+                            total /= currentNumber;
+                          }
+                     }
+                   result.textContent = total;
+             }
+</script>
+
+</body>
+</html>
